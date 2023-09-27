@@ -39,3 +39,40 @@ select id,Name,Salary,gender,deptName
 from tblEmployee
 join tblDepartment
 on tblEmployee.Departmentid=tblDepartment.Deptid
+
+create view [dbo].[vWTotalSalesByProduct]
+with sChemaBinding
+AS
+select Name,
+sum(isnull((QuantitySold*UnitPrice),0))as TotalSales,
+count_big(*) as TotalTransactions
+from dbo.tblProductSales
+join dbo.tblProduct
+on dbo.tblProduct.Productid=dbo.tblProductSales.Productid
+group by Name
+GO
+
+--Vigad view
+Create View vWEmployeeDetails
+@Gender nvarchar(20)
+as
+Select Id, Name, Gender, DepartmentId
+from  tblEmployee
+where Gender = @Gender
+create view vWEmployeeDetails
+@Gender nvarchar(30)
+as
+select id,_Name,Gender,Departmentid
+from tblEmployee
+where Gender= @Gender
+
+Create View vWEmployeeDetailsSorted
+as
+Select Id, Name, Gender, DepartmentId
+from tblEmployee
+order by Id
+
+Create View vwOnTempTable
+as
+Select Id, Name, Gender
+from ##TestTempTable
