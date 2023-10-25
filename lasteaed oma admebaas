@@ -1,0 +1,92 @@
+--tabeli loomine
+create table laps(
+    id int PRIMARY key AUTO_INCREMENT,
+    eesnimi varchar(15),
+    perenimi varchar(15),
+    elukoht_id int,
+    vanus int,
+    lapsevanem_id int,
+    ruhm_id int)
+
+create table lapsevanem(
+    id int PRIMARY key AUTO_INCREMENT,
+    eesnimi varchar(15),
+    perenimi varchar(15),
+    elukoht_id int,
+    vanus int,
+    tel_number int)
+
+create table elukoht(
+    id int PRIMARY key AUTO_INCREMENT,
+    maakond varchar(15),
+    linn varchar(15),
+    linnapiirkond varchar(15),
+    tahav varchar(15),
+    maja varchar(15))
+
+create table ruhm(
+    id int PRIMARY key AUTO_INCREMENT,
+	nimetus varchar(15),
+    laste_hulk int,
+    ruhm_juhataja_id int,
+    kabinet_id int)
+
+create table kabinet(
+    id int PRIMARY key AUTO_INCREMENT,
+	kabineti_number int,
+    on_taastaud int,
+    laste_mahutavus int)
+
+create table too_nimetus(
+    id int PRIMARY key AUTO_INCREMENT,
+    nimetus varchar(15),
+    palk_brutto varchar(10))
+
+create table tootaja(
+    id int PRIMARY key AUTO_INCREMENT,
+    eesnimi varchar(15),
+    perenimi varchar(15),
+    too_nimetus_id int,
+    tootasu_maar varchar(15),
+    on_juhataja bit)
+
+
+--seosed
+
+alter table laps
+add CONSTRAINT fk_laps_ruhm
+FOREIGN KEY (ruhm_id) REFERENCES ruhm(id);
+
+alter table laps
+add CONSTRAINT fk_laps_lapsevanem
+FOREIGN KEY (lapsevanem_id) REFERENCES lapsevanem(id);
+
+alter table laps
+add CONSTRAINT fk_laps_elukoht
+FOREIGN KEY (elukoht_id) REFERENCES elukoht(id);
+
+alter table lapsevanem
+add CONSTRAINT fk_lapsevanem_elukoht
+FOREIGN KEY (elukoht_id) REFERENCES elukoht(id);
+
+alter table ruhm
+add CONSTRAINT fk_ruhm_kabinet
+FOREIGN KEY (kabinet_id) REFERENCES kabinet(id);
+
+alter table ruhm
+add CONSTRAINT fk_ruhm_tootaja
+FOREIGN KEY (ruhm_juhataja_id) REFERENCES tootaja(id);
+
+alter table tootaja
+add CONSTRAINT fk_tootaja_toonimetus
+FOREIGN KEY (too_nimetus_id) REFERENCES too_nimetus(id);
+
+--tabeli lisamine
+
+
+
+
+
+
+
+
