@@ -81,7 +81,11 @@ alter table tootaja
 add CONSTRAINT fk_tootaja_toonimetus
 FOREIGN KEY (too_nimetus_id) REFERENCES too_nimetus(id);
 
---tabeli lisamine
+create table logi(
+    id int PRIMARY key AUTO_INCREMENT,
+    andmed varchar(100),
+    kuupaev datetime,
+    kasutaja varchar(100))
 
 
 
